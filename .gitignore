@@ -1,0 +1,13 @@
+# compiled source #
+###################
+*.o
+*.so
+*.com
+*.exe
+*.dll
+*.class
+
+# test directories #
+####################
+test/
+
