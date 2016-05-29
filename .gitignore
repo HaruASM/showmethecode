@@ -6,8 +6,12 @@
 *.exe
 *.dll
 *.class
+*.swp
 
 # test directories #
 ####################
-test/
+compiles/
 
+# run files
+####################
+run
