@@ -5,6 +5,13 @@
 #include<stdlib.h>
 #include<pthread.h>
 
+// socket
+#include "sys/types.h"
+#include "sys/socket.h"
+#include "netinet/in.h"
+
+#define BUF_SIZE 2048
+
 #define MON_IDLE                0
 #define MON_DEAD                1
 #define MON_ATTACKED            2
@@ -172,3 +179,45 @@ int main(){
     return 0;
 }
 
+
+
+char buffer[10240] ;
+
+void server()
+{
+    int c_socket, s_socket;
+    struct socketaddr_in c_addr, s_addr;
+    int len, n;
+    
+    s_socket = socket(PF_INET, SOCK_STREAM, 0);
+    
+    memset(&s_addr, 0, sizeof(s_addr));
+    s_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    s_addr.sin_family = AF_INET;
+    s_addr.sin_port = htons(6114); // 6114
+    
+    if( bind(s_socket, (struct sockaddr *) &s_addr, sizeof(s_addr)) == -1 ){
+        puts("err bind");
+        return ;
+    }
+    
+    if( listen(s_socket, 5) == -1 ){
+        puts("listen err");
+        return ;
+    }
+    
+    while(1){
+        len = sizeof(c_addr);
+        
+        c_socket = accept(s_socket, (struct socketaddr *) &c_addr, &len );
+        
+        n = strlen(buffer);
+        
+        
+        
+        
+        
+    }
+    
+    close(s_socket);
+}

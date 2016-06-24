@@ -2,18 +2,21 @@
 
 KERNEL = ./kernel
 COMPILE = ./compiles
+LIB = ./lib
 
-SRCS = main.c \
-	$(KERNEL)/fork.c \
+SRCS = main.c 
 
-OBJECTS = $(SRCS:.c=.o)
+DIRS = $(wildcard $(KERNEL)/*.c) \
+		$(wildcard $(LIB)/*.c)
+
+OBJECTS = $(SRCS:.c=.o) \
+			$(DIRS:.c=.o)
 
 TARGET = run
 CC = gcc
-CFLAGS = -O2 -g
 
 $(TARGET): $(OBJECTS)
-	$(CC) -o $(TARGET) $(OBJECTS)
+	$(CC) -o $@ $^  -lpthread
 
 clean:
 	-rm -f $(OBJECTS) $(TARGET)
